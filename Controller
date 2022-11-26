@@ -1,0 +1,43 @@
+import numpy as np
+
+from Filters.Blue import Blue
+from Filters.Grayscale import Grayscale
+from Filters.Green import Green
+from Filters.Red import Red
+from Filters.Sepia import Sepia
+
+
+class Controller:
+
+    def __init__(self):
+        pass
+
+    def apply_filter(self, filter_type, img):
+        function = None
+
+        if filter_type == "Grayscale":
+            function = Grayscale()
+        elif filter_type == "Sepia":
+            function = Sepia()
+        elif filter_type == "Red":
+            function = Red()
+        elif filter_type == "Green":
+            function = Green()
+        elif filter_type == "Blue":
+            function = Blue()
+
+        for i in range(img.height):
+            for j in range(img.width):
+                img.change_data(i, j, np.clip(function.apply(img.get_data(i, j)), 0, 255))
+
+    def vertical_flip(self, img):
+        for i in range(int(img.height / 2)) :
+            for j in range( img.width) :
+                height_to_set_at = int(abs(img.height / 2 - i) + img.height / 2 - 1)
+                bottom_half_colors = img.data[i][j]
+                top_half_colors = img.data[height_to_set_at][j]
+                img.change_data(i, j, top_half_colors)
+                img.change_data(height_to_set_at, j, bottom_half_colors)
+
+
+
