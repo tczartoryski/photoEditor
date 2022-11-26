@@ -1,0 +1,25 @@
+import imageio.v2 as imageio
+
+
+class Image:
+
+    def __init__(self):
+        self.data = None
+        self.height = None
+        self.width = None
+
+
+    def load_image(self, filepath):
+        self.data = imageio.imread(filepath)
+        values = self.data.shape
+        self.width = values[0]
+        self.height = values[1]
+
+    def save_image(self, filepath):
+        imageio.imwrite(filepath, self.data)
+
+    def change_data(self, i, j, data):
+        self.data[i][j] = data
+
+    def get_data(self, i,j):
+        return self.data[i][j]
