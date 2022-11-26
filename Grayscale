@@ -1,0 +1,10 @@
+
+
+class Grayscale :
+
+    def __init__(self):
+        pass
+
+    def apply(self, array):
+        grayscale = int(0.3 * array[0] + 0.59 * array[1] + 0.11 * array[2])
+        return [grayscale, grayscale, grayscale]
